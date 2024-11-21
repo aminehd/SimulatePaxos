@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "simulate-paxos"
+version = "0.1.0"
+description = "A Paxos consensus algorithm implementation"
+authors = ["Your Name"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.115.5"
+uvicorn = "^0.32.1"
+httpx = "^0.27.2"
+pydantic = "^2.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

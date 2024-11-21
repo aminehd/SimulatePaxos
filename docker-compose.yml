@@ -1,0 +1,39 @@
+services:
+  server1:
+    build:
+      context: /home/amineh/WorkSpace/SimulatePaxos
+      dockerfile: Dockerfile
+    container_name: paxos_server1
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SERVER_ADDRESSES=server1:8000,server2:8000,server3:8000
+    ports:
+      - "8001:8000"
+    depends_on:
+      - server2
+      - server3
+
+  server2:
+    build:
+      context: /home/amineh/WorkSpace/SimulatePaxos
+      dockerfile: Dockerfile
+    container_name: paxos_server2
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SERVER_ADDRESSES=server1:8000,server2:8000,server3:8000
+    ports:
+      - "8002:8000"
+
+  server3:
+    build:
+      context: /home/amineh/WorkSpace/SimulatePaxos 
+      dockerfile: Dockerfile
+    container_name: paxos_server3
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SERVER_ADDRESSES=server1:8000,server2:8000,server3:8000
+    ports:
+      - "8003:8000"
