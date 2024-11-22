@@ -32,7 +32,7 @@ class PaxosServer:
                     print(f"Server {self.server_id} is now partitioned.")
                 else:
                     print(f"Server {self.server_id} is now connected.")
-
+    #  todo implement handle_prepare and handle_accept methods
 # Initialize the PaxosServer
 server = PaxosServer()
 # Start the network partition simulation
