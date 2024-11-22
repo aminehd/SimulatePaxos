@@ -1,5 +1,21 @@
 services:
+  leader:
+    # For portainer to rebuild images
+    pull_policy: build
+    build:
+      context: /home/amineh/WorkSpace/SimulatePaxos 
+      dockerfile: Dockerfile
+    container_name: paxos_leader
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - SERVER_ADDRESSES=server1:8000,server2:8000,leader:8000
+      - CONTAINER_NAME=paxos_leader  # Pass the container name
+    ports:
+      - "8003:8000"
   server1:
+    # For portainer to rebuild images
+    pull_policy: build
     build:
       context: /home/amineh/WorkSpace/SimulatePaxos
       dockerfile: Dockerfile
@@ -7,14 +23,17 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=8000
-      - SERVER_ADDRESSES=server1:8000,server2:8000,server3:8000
+      - SERVER_ADDRESSES=server1:8000,server2:8000,leader:8000
+      - CONTAINER_NAME=paxos_server1  # Pass the container name
     ports:
       - "8001:8000"
     depends_on:
       - server2
-      - server3
+      - leader
 
   server2:
+    # For portainer to rebuild images
+    pull_policy: build
     build:
       context: /home/amineh/WorkSpace/SimulatePaxos
       dockerfile: Dockerfile
@@ -22,18 +41,10 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=8000
-      - SERVER_ADDRESSES=server1:8000,server2:8000,server3:8000
+      - SERVER_ADDRESSES=server1:8000,server2:8000,leader:8000
+      - CONTAINER_NAME=paxos_server2  # Pass the container name
     ports:
       - "8002:8000"
 
-  server3:
-    build:
-      context: /home/amineh/WorkSpace/SimulatePaxos 
-      dockerfile: Dockerfile
-    container_name: paxos_server3
-    environment:
-      - HOST=0.0.0.0
-      - PORT=8000
-      - SERVER_ADDRESSES=server1:8000,server2:8000,server3:8000
-    ports:
-      - "8003:8000"
+
+    
